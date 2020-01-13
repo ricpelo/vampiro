@@ -1,0 +1,34 @@
+# VERBOS
+
+ABRIR = 'ABRIR'
+NORTE = 'NORTE'
+SUR = 'SUR'
+ESTE = 'ESTE'
+OESTE = 'OESTE'
+ARRIBA = 'ARRIBA'
+ABAJO = 'ABAJO'
+CERRAR = 'CERRAR'
+
+# NOMBRES
+
+LLAVE = 'LLAVE'
+
+verbos = {
+    'ABRIR': ABRIR,
+    'ABRE': ABRIR,
+    'NORTE': NORTE,
+    'N': NORTE,
+    'ARRIBA': ARRIBA,
+    'SUBIR': ARRIBA,
+    'SUBE': ARRIBA,
+    'ABAJO': ABAJO,
+    'BAJAR': ABAJO,
+    'BAJA': ABAJO,
+    'CERRAR': CERRAR,
+    'CIERRA': CERRAR
+}
+
+nombres = {
+    'LLAVE': LLAVE,
+    'LLAVECITA': LLAVE
+}
