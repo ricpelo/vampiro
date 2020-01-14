@@ -17,10 +17,11 @@ while True:
     elif parser.verbo == parser.MIRAR:
         print(mapeado.actual[0])
         print(mapeado.actual[1])
-    elif parser.verbo == parser.NORTE and \
-         mapeado.actual == mapeado.vestibulo:
-        mapeado.actual = mapeado.pasillo
-        print(mapeado.actual[0])
-        print(mapeado.actual[1])
     else:
-        print('No puedes hacer eso.')
+        c = mapeado.conexiones.get(mapeado.actual)
+        if c is not None and parser.verbo in c:
+            mapeado.actual = c[parser.verbo]
+            print(mapeado.actual[0])
+            print(mapeado.actual[1])
+        else:
+            print('No puedes hacer eso.')
