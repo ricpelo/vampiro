@@ -24,3 +24,5 @@ conexiones = {
     vestibulo: {d.NORTE: pasillo},
     pasillo: {d.SUR: vestibulo, d.ESTE: biblioteca, d.OESTE: cocina}
 }
+
+actual = None

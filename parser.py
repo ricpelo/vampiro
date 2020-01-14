@@ -11,6 +11,7 @@ OESTE = 'OESTE'
 ARRIBA = 'ARRIBA'
 ABAJO = 'ABAJO'
 CERRAR = 'CERRAR'
+MIRAR = 'MIRAR'
 
 # NOMBRES
 
@@ -29,7 +30,9 @@ verbos = {
     'BAJAR': ABAJO,
     'BAJA': ABAJO,
     'CERRAR': CERRAR,
-    'CIERRA': CERRAR
+    'CIERRA': CERRAR,
+    'MIRAR': MIRAR,
+    'M': MIRAR
 }
 
 nombres = {
