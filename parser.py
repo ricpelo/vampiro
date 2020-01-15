@@ -13,11 +13,6 @@ ABAJO = 'ABAJO'
 CERRAR = 'CERRAR'
 MIRAR = 'MIRAR'
 
-# NOMBRES
-
-LLAVE = 'LLAVE'
-PUERTA = 'PUERTA'
-
 verbos = {
     'ABRIR': ABRIR,
     'ABRE': ABRIR,
@@ -38,11 +33,23 @@ verbos = {
     'M': MIRAR
 }
 
+# NOMBRES
+
+LLAVE = 'LLAVE'
+PUERTA = 'PUERTA'
+CUCHILLO = 'CUCHILLO'
+PALANCA = 'PALANCA'
+CRUCIFIJO = 'CRUCIFIJO'
+
 nombres = {
     'LLAVE': LLAVE,
     'LLAVECITA': LLAVE,
     'PUERTA': PUERTA,
-    'PORTON': PUERTA
+    'PORTON': PUERTA,
+    'CUCHILLO': CUCHILLO,
+    'PALANCA': PALANCA,
+    'CRUCIFIJO': CRUCIFIJO,
+    'CRUZ': CRUCIFIJO
 }
 
 def interpretar(entrada):
