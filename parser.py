@@ -12,6 +12,7 @@ ARRIBA = 'ARRIBA'
 ABAJO = 'ABAJO'
 CERRAR = 'CERRAR'
 MIRAR = 'MIRAR'
+COGER = 'COGER'
 
 verbos = {
     'ABRIR': ABRIR,
@@ -30,7 +31,8 @@ verbos = {
     'CERRAR': CERRAR,
     'CIERRA': CERRAR,
     'MIRAR': MIRAR,
-    'M': MIRAR
+    'M': MIRAR,
+    'COGER': COGER
 }
 
 # NOMBRES

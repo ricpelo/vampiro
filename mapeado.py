@@ -44,7 +44,9 @@ def describir():
     print(actual[DESCR])
     if actual[ITEMS] != []:
         # Visualiza la lista de ítems que hay en la localidad actual
-        pass
+        print('También puedes ver:')
+        for item in actual[ITEMS]:
+            print(item[0])
 
 def conecta_con(localidad, direccion):
     if direccion in localidad[CONEX]:
