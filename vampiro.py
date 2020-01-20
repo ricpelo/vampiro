@@ -19,7 +19,8 @@ while True:
     elif parser.verbo == parser.COGER and \
          parser.nombre == parser.PALANCA and \
          mapa.actual == mapa.biblioteca:
-        mapa.actual[mapa.ITEMS].remove(items.palanca)
+         items.sacar(items.palanca, mapa.actual[mapa.ITEMS])
+#        mapa.actual[mapa.ITEMS].remove(items.palanca)
         print('Has cogido la palanca.')
     else:
         destino = mapa.conecta_con(mapa.actual, parser.verbo)
