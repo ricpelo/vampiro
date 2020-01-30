@@ -6,6 +6,9 @@ class Conexion:
         self.set_direccion(direccion)
         self.set_destino(destino)
 
+    def __repr__(self):
+        return str(self.direccion()) + ' => ' + str(self.destino())
+
     def direccion(self):
         return self._direccion
 
@@ -25,6 +28,9 @@ class GrupoConexiones:
             for elem in iterable:
                 self.insertar(elem)
 
+    def __repr__(self):
+        return str(self._conexiones)
+
     def insertar(self, conexion):
         self._conexiones.add(conexion)
 
@@ -32,7 +38,7 @@ class GrupoConexiones:
         for conexion in self._conexiones:
             if conexion.direccion() == direccion:
                 return conexion.destino()
-        return None
+        return localidad_nula
 
 conexiones_vacio = GrupoConexiones()
 
@@ -41,6 +47,9 @@ class Localidad:
         self.set_nombre(nombre)
         self.set_descripcion(descripcion)
         self.set_conexiones(conexiones)
+
+    def __repr__(self):
+        return self.nombre()
 
     def nombre(self):
         return self._nombre
@@ -91,6 +100,7 @@ biblioteca = Localidad(
 
 localidad_nula = Localidad('VACÍA', 'Localidad vacía.')
 
+"""
 vestibulo[CONEX] = {d.NORTE: pasillo}
 pasillo[CONEX] = {d.SUR: vestibulo, d.ESTE: biblioteca, d.OESTE: cocina}
 biblioteca[CONEX] = {d.OESTE: pasillo}
@@ -112,3 +122,4 @@ def conecta_con(localidad, direccion):
         return localidad[CONEX][direccion]
     else:
         return localidad_nula
+"""
