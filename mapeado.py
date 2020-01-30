@@ -7,7 +7,7 @@ class Conexion:
         self.set_destino(destino)
 
     def __repr__(self):
-        return self.direccion() + ' => ' + str(self.destino())
+        return str(self.direccion()) + ' => ' + str(self.destino())
 
     def direccion(self):
         return self._direccion
@@ -28,6 +28,9 @@ class GrupoConexiones:
             for elem in iterable:
                 self.insertar(elem)
 
+    def __repr__(self):
+        return str(self._conexiones)
+
     def insertar(self, conexion):
         self._conexiones.add(conexion)
 
@@ -44,7 +47,10 @@ class Localidad:
         self.set_nombre(nombre)
         self.set_descripcion(descripcion)
         self.set_conexiones(conexiones)
-        self._grupo_items = items.GrupoItems(items)     
+        self._grupo_items = items.GrupoItems(items)
+
+    def __repr__(self):
+        return self.nombre()
 
     def __repr__(self):
         return self.nombre()
@@ -140,4 +146,3 @@ cocina.set_conexiones(GrupoConexiones([
 ]))
 
 actual = localidad_nula
-

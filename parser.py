@@ -1,58 +1,23 @@
 verbo = None
 nombre = None
 
-# VERBOS
+class Vocabulario:
+    def __init__(self):
+        self._vocabulario = {}
 
-ABRIR = 'ABRIR'
-NORTE = 'NORTE'
-SUR = 'SUR'
-ESTE = 'ESTE'
-OESTE = 'OESTE'
-ARRIBA = 'ARRIBA'
-ABAJO = 'ABAJO'
-CERRAR = 'CERRAR'
-MIRAR = 'MIRAR'
-COGER = 'COGER'
+    def insertar(self, token, lexemas):
+        for lexema in lexemas:
+            self._vocabulario[lexema] = token
 
-verbos = {
-    'ABRIR': ABRIR,
-    'ABRE': ABRIR,
-    'NORTE': NORTE,
-    'N': NORTE,
-    'S': SUR,
-    'E': ESTE,
-    'O': OESTE,
-    'ARRIBA': ARRIBA,
-    'SUBIR': ARRIBA,
-    'SUBE': ARRIBA,
-    'ABAJO': ABAJO,
-    'BAJAR': ABAJO,
-    'BAJA': ABAJO,
-    'CERRAR': CERRAR,
-    'CIERRA': CERRAR,
-    'MIRAR': MIRAR,
-    'M': MIRAR,
-    'COGER': COGER
-}
+    def insertar_masivo(self, diccionario):
+        for token, lexema in diccionario.items():
+            self.insertar(token, lexema)
 
-# NOMBRES
+    def __contains__(self, key):
+        return key in self._vocabulario
 
-LLAVE = 'LLAVE'
-PUERTA = 'PUERTA'
-CUCHILLO = 'CUCHILLO'
-PALANCA = 'PALANCA'
-CRUCIFIJO = 'CRUCIFIJO'
-
-nombres = {
-    'LLAVE': LLAVE,
-    'LLAVECITA': LLAVE,
-    'PUERTA': PUERTA,
-    'PORTON': PUERTA,
-    'CUCHILLO': CUCHILLO,
-    'PALANCA': PALANCA,
-    'CRUCIFIJO': CRUCIFIJO,
-    'CRUZ': CRUCIFIJO
-}
+    def token(self, lexema, default=None):
+        return self._vocabulario.get(lexema, default)
 
 def interpretar(entrada):
     """
@@ -65,17 +30,61 @@ def interpretar(entrada):
     global verbo
     global nombre
     import re
+    verbo = None
+    nombre = None
     patron = re.compile(r'^\w+( +\w+)?$')
-    if patron.match(entrada) is None:
-        verbo = None
-        nombre = None
-    else:
-        tokens = entrada.split()
-        verbo = verbos.get(tokens[0])
-        if len(tokens) > 1:
-            nombre = nombres.get(tokens[1])
-        else:
-            nombre = None
+    if patron.match(entrada) is not None:
+        palabras = entrada.split()
+        verbo = verbos.token(palabras[0])
+        if len(palabras) > 1:
+            nombre = nombres.token(palabras[1])
+
+# VERBOS
+
+ABRIR = 'ABRIR'
+NORTE = 'NORTE'
+SUR = 'SUR'
+ESTE = 'ESTE'
+OESTE = 'OESTE'
+ARRIBA = 'ARRIBA'
+ABAJO = 'ABAJO'
+CERRAR = 'CERRAR'
+MIRAR = 'MIRAR'
+COGER = 'COGER'
+DEJAR = 'DEJAR'
+
+verbos = Vocabulario()
+verbos.insertar_masivo({
+    ABRIR: ['ABRIR', 'ABRE'],
+    NORTE: ['NORTE', 'N'],
+    SUR: ['SUR', 'S'],
+    ESTE: ['ESTE', 'E'],
+    OESTE: ['OESTE', 'O'],
+    ARRIBA: ['ARRIBA', 'SUBIR', 'SUBE'],
+    ABAJO: ['ABAJO', 'BAJAR', 'BAJA'],
+    ABRIR: ['ABRIR', 'ABRE'],
+    CERRAR: ['CERRAR', 'CIERRA'],
+    MIRAR: ['MIRAR', 'MIRA', 'M'],
+    COGER: ['COGER', 'COGE', 'TOMA'],
+    DEJAR: ['DEJAR', 'DEJA']
+})
+
+# NOMBRES
+
+LLAVE = 'LLAVE'
+PUERTA = 'PUERTA'
+CUCHILLO = 'CUCHILLO'
+PALANCA = 'PALANCA'
+CRUCIFIJO = 'CRUCIFIJO'
+
+nombres = Vocabulario()
+nombres.insertar_masivo({
+    LLAVE: ['LLAVE', 'LLAVECITA'],
+    PUERTA: ['PUERTA', 'PORTON'],
+    CUCHILLO: ['CUCHILLO'],
+    PALANCA: ['PALANCA'],
+    CRUCIFIJO: ['CRUCIFIJO', 'CRUZ'],
+})
 
 if __name__ == "__main__":
     print("ABRIR PUERTA")
