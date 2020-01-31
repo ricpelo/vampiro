@@ -1,10 +1,13 @@
-import parser as d
+import parser
 import items
 
 class Conexion:
     def __init__(self, direccion, destino):
         self.set_direccion(direccion)
         self.set_destino(destino)
+
+    def __repr__(self):
+        return self.direccion() + ' => ' + str(self.destino())
 
     def direccion(self):
         return self._direccion
@@ -32,7 +35,7 @@ class GrupoConexiones:
         for conexion in self._conexiones:
             if conexion.direccion() == direccion:
                 return conexion.destino()
-        return None
+        return localidad_nula
 
 conexiones_vacio = GrupoConexiones()
 
@@ -41,6 +44,9 @@ class Localidad:
         self.set_nombre(nombre)
         self.set_descripcion(descripcion)
         self.set_conexiones(conexiones)
+
+    def __repr__(self):
+        return self.nombre()
 
     def nombre(self):
         return self._nombre
@@ -91,13 +97,24 @@ biblioteca = Localidad(
 
 localidad_nula = Localidad('VACÍA', 'Localidad vacía.')
 
-vestibulo[CONEX] = {d.NORTE: pasillo}
-pasillo[CONEX] = {d.SUR: vestibulo, d.ESTE: biblioteca, d.OESTE: cocina}
-biblioteca[CONEX] = {d.OESTE: pasillo}
-cocina[CONEX] = {d.ESTE: pasillo}
+vestibulo.set_conexiones(GrupoConexiones([
+    Conexion(parser.NORTE, pasillo)
+]))
+pasillo.set_conexiones(GrupoConexiones([
+    Conexion(parser.SUR, vestibulo),
+    Conexion(parser.ESTE, biblioteca),
+    Conexion(parser.OESTE, cocina)
+]))
+biblioteca.set_conexiones(GrupoConexiones([
+    Conexion(parser.OESTE, pasillo)
+]))
+cocina.set_conexiones(GrupoConexiones([
+    Conexion(parser.ESTE, pasillo)
+]))
 
 actual = localidad_nula
 
+"""
 def describir():
     print(actual[NOMBRE])
     print(actual[DESCR])
@@ -106,9 +123,4 @@ def describir():
         print('También puedes ver:')
         for item in actual[ITEMS]:
             print(item[0])
-
-def conecta_con(localidad, direccion):
-    if direccion in localidad[CONEX]:
-        return localidad[CONEX][direccion]
-    else:
-        return localidad_nula
+"""
