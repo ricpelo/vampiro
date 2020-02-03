@@ -22,7 +22,7 @@ class Conexion:
         self._destino = destino
 
 class GrupoConexiones:
-    def __init__(self, iterable = None):
+    def __init__(self, iterable=None):
         self._conexiones = set()
         if iterable is not None:
             for elem in iterable:
@@ -40,10 +40,11 @@ class GrupoConexiones:
 conexiones_vacio = GrupoConexiones()
 
 class Localidad:
-    def __init__(self, nombre, descripcion, conexiones = conexiones_vacio):
+    def __init__(self, nombre, descripcion, conexiones=conexiones_vacio, items=None):
         self.set_nombre(nombre)
         self.set_descripcion(descripcion)
         self.set_conexiones(conexiones)
+        self._grupo_items = items.GrupoItems(items)     
 
     def __repr__(self):
         return self.nombre()
@@ -67,7 +68,9 @@ class Localidad:
         self._conexiones = conexiones
 
     def describir(self):
-        pass
+        print(self.nombre())
+        print(self.descripcion())
+        # TODO: Los ítems
 
     def conecta_con(self, direccion):
         return self.conexiones().conecta_con(direccion)
@@ -75,9 +78,33 @@ class Localidad:
     def insertar_conexion(self, conexion):
         self.conexiones().insertar(conexion)
 
+    def insertar_item(self, item):
+        self._grupo_items.insertar(item)
+
+    def sacar_item(self, item):
+        self._grupo_items.sacar(item)
+
+    def contiene_item(self, item):
+        return self._grupo_items.contiene(item)
+
+    def tiene_items(self):
+        return self._grupo_items.esta_vacio()
+
+"""
+def describir():
+    print(actual[NOMBRE])
+    print(actual[DESCR])
+    if actual[ITEMS] != []:
+        # Visualiza la lista de ítems que hay en la localidad actual
+        print('También puedes ver:')
+        for item in actual[ITEMS]:
+            print(item[0])
+"""
+
 vestibulo = Localidad(
     'VESTIBULO',
-    'Estás en el vestíbulo del castillo...'
+    'Estás en el vestíbulo del castillo...',
+    items=[items.palanca, items.crucifijo]
 )
 
 pasillo = Localidad(
@@ -114,13 +141,3 @@ cocina.set_conexiones(GrupoConexiones([
 
 actual = localidad_nula
 
-"""
-def describir():
-    print(actual[NOMBRE])
-    print(actual[DESCR])
-    if actual[ITEMS] != []:
-        # Visualiza la lista de ítems que hay en la localidad actual
-        print('También puedes ver:')
-        for item in actual[ITEMS]:
-            print(item[0])
-"""

@@ -3,7 +3,7 @@ import mapeado as mapa
 import items
 
 mapa.actual = mapa.vestibulo
-mapa.describir()
+mapa.actual.describir()
 
 while True:
     entrada = input('\n¿Qué vas a hacer ahora?\n> ').strip().upper()
@@ -15,17 +15,17 @@ while True:
        mapa.actual == mapa.vestibulo:
         print('No puedes salir sin haber acabado tu misión.')
     elif parser.verbo == parser.MIRAR:
-        mapa.describir()
-    elif parser.verbo == parser.COGER and \
-         parser.nombre == parser.PALANCA and \
-         mapa.actual == mapa.biblioteca:
-         items.sacar(items.palanca, mapa.actual[mapa.ITEMS])
-#        mapa.actual[mapa.ITEMS].remove(items.palanca)
-        print('Has cogido la palanca.')
+        mapa.actual.describir()
+#     elif parser.verbo == parser.COGER and \
+#          parser.nombre == parser.PALANCA and \
+#          mapa.actual == mapa.biblioteca:
+#          items.sacar(items.palanca, mapa.actual[mapa.ITEMS])
+# #        mapa.actual[mapa.ITEMS].remove(items.palanca)
+#         print('Has cogido la palanca.')
     else:
-        destino = mapa.conecta_con(mapa.actual, parser.verbo)
+        destino = mapa.actual.conecta_con(parser.verbo)
         if destino != mapa.localidad_nula:
             mapa.actual = destino
-            mapa.describir()
+            mapa.actual.describir()
         else:
             print('No puedes hacer eso.')

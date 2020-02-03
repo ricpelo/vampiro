@@ -1,35 +1,54 @@
 import parser
 
-"""
-cuchillo = (
+class Item:
+    def __init__(self, nombre, palabra):
+        self.set_nombre(nombre)
+        self.set_palabra(palabra)
+
+    def nombre(self):
+        return self._nombre
+
+    def set_nombre(self, nombre):
+        self._nombre = nombre
+
+    def palabra(self):
+        return self._palabra
+
+    def set_palabra(self, palabra):
+        self._palabra = palabra
+
+cuchillo = Item(
     'un cuchillo',
     parser.CUCHILLO
 )
 
-palanca = (
+palanca = Item(
     'una palanca',
     parser.PALANCA
 )
 
-crucifijo = (
+crucifijo = Item(
     'un crucifijo',
     parser.CRUCIFIJO
 )
-"""
 
-def vacia():
-    return []
+class GrupoItems:
+    def __init__(self, iterable = None):
+        self._items = set()
+        if iterable is not None:
+            for elem in iterable:
+                self.insertar(elem)
 
-def meter(it, li):
-    li.append(it)
-    return li
+    def insertar(self, item):
+        self._items.add(item)
 
-def sacar(it, li):
-    li.remove(it)
-    return li
+    def sacar(self, item):
+        self._items.discard(item)
 
-def es_vacia(li):
-    return li == []
+    def esta_vacio(self):
+        return len(self._items) == 0
 
-def esta_en(it, li):
-    return it in li
+    def contiene(self, item):
+        return item in self._items
+
+grupo_items_vacio = GrupoItems()
