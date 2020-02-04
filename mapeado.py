@@ -71,6 +71,9 @@ class Localidad:
     def conexiones(self):
         return self._conexiones
 
+    def items(self):
+        return self._grupo_items
+
     def describir(self):
         print(self.nombre())
         print(self.descripcion())
@@ -78,9 +81,6 @@ class Localidad:
             print('También puedes ver:')
             for item in self.items():
                 print('-', item.nombre())
-
-    def items(self):
-        return self._grupo_items
 
     def conecta_con(self, iterable):
         self.conexiones().meter_masivo(iterable)

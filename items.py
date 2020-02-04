@@ -1,9 +1,9 @@
 import parser
 
 class Item:
-    def __init__(self, nombre, palabra):
+    def __init__(self, nombre, token):
         self.set_nombre(nombre)
-        self.set_palabra(palabra)
+        self.set_token(token)
 
     def nombre(self):
         return self._nombre
@@ -11,11 +11,11 @@ class Item:
     def set_nombre(self, nombre):
         self._nombre = nombre
 
-    def palabra(self):
-        return self._palabra
+    def token(self):
+        return self._token
 
-    def set_palabra(self, palabra):
-        self._palabra = palabra
+    def set_token(self, token):
+        self._token = token
 
 cuchillo = Item(
     'un cuchillo',
@@ -33,17 +33,23 @@ crucifijo = Item(
 )
 
 class GrupoItems:
-    def __init__(self, iterable = None):
+    def __init__(self, iterable=None):
         self._items = set()
-        if iterable is not None:
-            for elem in iterable:
-                self.meter(elem)
+        self.meter_masivo(iterable)
+
+    def __iter__(self):
+        return iter(self.items())
 
     def items(self):
         return self._items
 
     def meter(self, item):
         self.items().add(item)
+
+    def meter_masivo(self, iterable):
+        if iterable is not None:
+            for elem in iterable:
+                self.meter(elem)
 
     def sacar(self, item):
         self.items().discard(item)
@@ -54,11 +60,9 @@ class GrupoItems:
     def contiene(self, item):
         return item in self.items()
 
-    def contiene_palabra(self, palabra):
+    def contiene_token(self, token):
         for item in self.items():
-            if item.palabra() == palabra:
+            if item.token() == token:
                 return item
         return False
 
-    def __iter__(self):
-        return iter(self.items())

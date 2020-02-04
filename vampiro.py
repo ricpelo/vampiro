@@ -16,10 +16,10 @@ while True:
     elif parser.verbo == parser.MIRAR:
         mapeado.actual.describir()
     elif parser.verbo == parser.COGER:
-        item = mapeado.actual.items().contiene_palabra(parser.nombre)
+        item = mapeado.actual.items().contiene_token(parser.nombre)
         jugador.jugador.coger(item)
     elif parser.verbo == parser.DEJAR:
-        item = jugador.jugador.inventario().contiene_palabra(parser.nombre)
+        item = jugador.jugador.inventario().contiene_token(parser.nombre)
         jugador.jugador.dejar(item)
     elif parser.verbo == parser.INVENTARIO:
         jugador.jugador.mostrar_inventario()

@@ -12,22 +12,20 @@ class Token:
         self._token = token
 
 token_nulo = Token('NULO')
-verbo = token_nulo
-nombre = token_nulo
 
 class Vocabulario:
     def __init__(self, diccionario=None):
         self._vocabulario = {}
         if diccionario is not None:
-            for token, lexema in diccionario.items():
-                self.meter(token, lexema)
+            for token, lexemas in diccionario.items():
+                self.meter(token, lexemas)
+
+    def __contains__(self, key):
+        return key in self._vocabulario
 
     def meter(self, token, lexemas):
         for lexema in lexemas:
             self._vocabulario[lexema] = token
-
-    def __contains__(self, key):
-        return key in self._vocabulario
 
     def token(self, lexema, default=None):
         return self._vocabulario.get(lexema, default)
@@ -96,10 +94,13 @@ CRUCIFIJO = Token('CRUCIFIJO')
 nombres = Vocabulario({
     LLAVE: ['LLAVE', 'LLAVECITA'],
     PUERTA: ['PUERTA', 'PORTON'],
-    CUCHILLO: ['CUCHILLO'],
+    CUCHILLO: ['CUCHILLO', 'NAVAJA'],
     PALANCA: ['PALANCA'],
     CRUCIFIJO: ['CRUCIFIJO', 'CRUZ'],
 })
+
+verbo = token_nulo
+nombre = token_nulo
 
 if __name__ == "__main__":
     print("ABRIR PUERTA")
