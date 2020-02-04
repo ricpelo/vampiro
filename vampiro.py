@@ -1,6 +1,7 @@
 import parser
 import mapeado
 import items
+import jugador
 
 mapeado.actual = mapeado.vestibulo
 mapeado.actual.describir()
@@ -16,9 +17,15 @@ while True:
         mapeado.actual.describir()
     elif parser.verbo == parser.COGER:
         item = mapeado.actual.items().contiene_palabra(parser.nombre)
-        if item:
-            mapeado.actual.items().sacar(item)
-            print(f'Has cogido {item.nombre()}.')
+        jugador.jugador.coger(item)
+    elif parser.verbo == parser.DEJAR:
+        item = jugador.jugador.inventario().contiene_palabra(parser.nombre)
+        jugador.jugador.dejar(item)
+    elif parser.verbo == parser.INVENTARIO:
+        jugador.jugador.mostrar_inventario()
+    elif parser.verbo == parser.FIN:
+        print('Gracias por jugar.')
+        break
     else:
         destino = mapeado.actual.conecta_al(parser.verbo)
         if destino != mapeado.localidad_nula:

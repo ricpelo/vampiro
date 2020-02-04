@@ -65,6 +65,8 @@ CERRAR = Token('CERRAR')
 MIRAR = Token('MIRAR')
 COGER = Token('COGER')
 DEJAR = Token('DEJAR')
+INVENTARIO = Token('INVENTARIO')
+FIN = Token('FIN')
 
 verbos = Vocabulario({
     ABRIR: ['ABRIR', 'ABRE'],
@@ -78,7 +80,9 @@ verbos = Vocabulario({
     CERRAR: ['CERRAR', 'CIERRA'],
     MIRAR: ['MIRAR', 'MIRA', 'M'],
     COGER: ['COGER', 'COGE', 'TOMA'],
-    DEJAR: ['DEJAR', 'DEJA']
+    DEJAR: ['DEJAR', 'DEJA'],
+    INVENTARIO: ['INVENTARIO', 'I'],
+    FIN: ['FIN', 'TERMINAR', 'ACABAR', 'FINALIZAR']
 })
 
 # NOMBRES
