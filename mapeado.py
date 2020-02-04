@@ -24,33 +24,34 @@ class Conexion:
 class GrupoConexiones:
     def __init__(self, iterable=None):
         self._conexiones = set()
-        if iterable is not None:
-            for elem in iterable:
-                self.insertar(elem)
+        self.meter_masivo(iterable)
 
     def __repr__(self):
         return str(self._conexiones)
 
-    def insertar(self, conexion):
-        self._conexiones.add(conexion)
+    def conexiones(self):
+        return self._conexiones
 
-    def conecta_con(self, direccion):
-        for conexion in self._conexiones:
+    def meter(self, conexion):
+        self.conexiones().add(conexion)
+
+    def meter_masivo(self, iterable):
+        if iterable is not None:
+            for elem in iterable:
+                self.meter(elem)
+
+    def conecta_al(self, direccion):
+        for conexion in self.conexiones():
             if conexion.direccion() == direccion:
                 return conexion.destino()
         return localidad_nula
 
-conexiones_vacio = GrupoConexiones()
-
 class Localidad:
-    def __init__(self, nombre, descripcion, conexiones=conexiones_vacio, items=None):
+    def __init__(self, nombre, descripcion, conexiones=None, contiene=None):
         self.set_nombre(nombre)
         self.set_descripcion(descripcion)
-        self.set_conexiones(conexiones)
-        self._grupo_items = items.GrupoItems(items)
-
-    def __repr__(self):
-        return self.nombre()
+        self._conexiones = GrupoConexiones(conexiones)
+        self._grupo_items = items.GrupoItems(contiene)
 
     def __repr__(self):
         return self.nombre()
@@ -70,47 +71,41 @@ class Localidad:
     def conexiones(self):
         return self._conexiones
 
-    def set_conexiones(self, conexiones):
-        self._conexiones = conexiones
-
     def describir(self):
         print(self.nombre())
         print(self.descripcion())
-        # TODO: Los ítems
+        if not self.items().esta_vacio():
+            print('También puedes ver:')
+            for item in self.items():
+                print('-', item.nombre())
 
-    def conecta_con(self, direccion):
-        return self.conexiones().conecta_con(direccion)
+    def items(self):
+        return self._grupo_items
 
-    def insertar_conexion(self, conexion):
-        self.conexiones().insertar(conexion)
+    def conecta_con(self, iterable):
+        self.conexiones().meter_masivo(iterable)
 
-    def insertar_item(self, item):
-        self._grupo_items.insertar(item)
+    def conecta_al(self, direccion):
+        return self.conexiones().conecta_al(direccion)
 
-    def sacar_item(self, item):
-        self._grupo_items.sacar(item)
+    def meter_conexion(self, conexion):
+        self.conexiones().meter(conexion)
 
-    def contiene_item(self, item):
-        return self._grupo_items.contiene(item)
+    # def meter_item(self, item):
+    #     self._grupo_items.meter(item)
 
-    def tiene_items(self):
-        return self._grupo_items.esta_vacio()
+    # def sacar_item(self, item):
+    #     self._grupo_items.sacar(item)
 
-"""
-def describir():
-    print(actual[NOMBRE])
-    print(actual[DESCR])
-    if actual[ITEMS] != []:
-        # Visualiza la lista de ítems que hay en la localidad actual
-        print('También puedes ver:')
-        for item in actual[ITEMS]:
-            print(item[0])
-"""
+    # def contiene_item(self, item):
+    #     return self._grupo_items.contiene(item)
+
+    # def tiene_items(self):
+    #     return self._grupo_items.esta_vacio()
 
 vestibulo = Localidad(
     'VESTIBULO',
-    'Estás en el vestíbulo del castillo...',
-    items=[items.palanca, items.crucifijo]
+    'Estás en el vestíbulo del castillo...'
 )
 
 pasillo = Localidad(
@@ -125,24 +120,25 @@ cocina = Localidad(
 
 biblioteca = Localidad(
     'BIBLIOTECA',
-    'Te hallas en la biblioteca del castillo...'
+    'Te hallas en la biblioteca del castillo...',
+    contiene=[items.palanca]
 )
 
-localidad_nula = Localidad('VACÍA', 'Localidad vacía.')
+localidad_nula = Localidad('NULA', 'Localidad nula.')
 
-vestibulo.set_conexiones(GrupoConexiones([
+vestibulo.conecta_con([
     Conexion(parser.NORTE, pasillo)
-]))
-pasillo.set_conexiones(GrupoConexiones([
+])
+pasillo.conecta_con([
     Conexion(parser.SUR, vestibulo),
     Conexion(parser.ESTE, biblioteca),
     Conexion(parser.OESTE, cocina)
-]))
-biblioteca.set_conexiones(GrupoConexiones([
+])
+biblioteca.conecta_con([
     Conexion(parser.OESTE, pasillo)
-]))
-cocina.set_conexiones(GrupoConexiones([
+])
+cocina.conecta_con([
     Conexion(parser.ESTE, pasillo)
-]))
+])
 
 actual = localidad_nula

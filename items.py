@@ -37,18 +37,28 @@ class GrupoItems:
         self._items = set()
         if iterable is not None:
             for elem in iterable:
-                self.insertar(elem)
+                self.meter(elem)
 
-    def insertar(self, item):
-        self._items.add(item)
+    def items(self):
+        return self._items
+
+    def meter(self, item):
+        self.items().add(item)
 
     def sacar(self, item):
-        self._items.discard(item)
+        self.items().discard(item)
 
     def esta_vacio(self):
-        return len(self._items) == 0
+        return len(self.items()) == 0
 
     def contiene(self, item):
-        return item in self._items
+        return item in self.items()
 
-grupo_items_vacio = GrupoItems()
+    def contiene_palabra(self, palabra):
+        for item in self.items():
+            if item.palabra() == palabra:
+                return item
+        return False
+
+    def __iter__(self):
+        return iter(self.items())

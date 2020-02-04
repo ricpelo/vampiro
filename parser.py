@@ -1,17 +1,30 @@
-verbo = None
-nombre = None
+class Token:
+    def __init__(self, token):
+        self.set_token(token)
+
+    def __repr__(self):
+        return self.token()
+
+    def token(self):
+        return self._token
+
+    def set_token(self, token):
+        self._token = token
+
+token_nulo = Token('NULO')
+verbo = token_nulo
+nombre = token_nulo
 
 class Vocabulario:
-    def __init__(self):
+    def __init__(self, diccionario=None):
         self._vocabulario = {}
+        if diccionario is not None:
+            for token, lexema in diccionario.items():
+                self.meter(token, lexema)
 
-    def insertar(self, token, lexemas):
+    def meter(self, token, lexemas):
         for lexema in lexemas:
             self._vocabulario[lexema] = token
-
-    def insertar_masivo(self, diccionario):
-        for token, lexema in diccionario.items():
-            self.insertar(token, lexema)
 
     def __contains__(self, key):
         return key in self._vocabulario
@@ -27,11 +40,11 @@ def interpretar(entrada):
     >>> print(nombre)
     PUERTA
     """
+    import re
     global verbo
     global nombre
-    import re
-    verbo = None
-    nombre = None
+    verbo = token_nulo
+    nombre = token_nulo
     patron = re.compile(r'^\w+( +\w+)?$')
     if patron.match(entrada) is not None:
         palabras = entrada.split()
@@ -41,20 +54,19 @@ def interpretar(entrada):
 
 # VERBOS
 
-ABRIR = 'ABRIR'
-NORTE = 'NORTE'
-SUR = 'SUR'
-ESTE = 'ESTE'
-OESTE = 'OESTE'
-ARRIBA = 'ARRIBA'
-ABAJO = 'ABAJO'
-CERRAR = 'CERRAR'
-MIRAR = 'MIRAR'
-COGER = 'COGER'
-DEJAR = 'DEJAR'
+ABRIR = Token('ABRIR')
+NORTE = Token('NORTE')
+SUR = Token('SUR')
+ESTE = Token('ESTE')
+OESTE = Token('OESTE')
+ARRIBA = Token('ARRIBA')
+ABAJO = Token('ABAJO')
+CERRAR = Token('CERRAR')
+MIRAR = Token('MIRAR')
+COGER = Token('COGER')
+DEJAR = Token('DEJAR')
 
-verbos = Vocabulario()
-verbos.insertar_masivo({
+verbos = Vocabulario({
     ABRIR: ['ABRIR', 'ABRE'],
     NORTE: ['NORTE', 'N'],
     SUR: ['SUR', 'S'],
@@ -71,14 +83,13 @@ verbos.insertar_masivo({
 
 # NOMBRES
 
-LLAVE = 'LLAVE'
-PUERTA = 'PUERTA'
-CUCHILLO = 'CUCHILLO'
-PALANCA = 'PALANCA'
-CRUCIFIJO = 'CRUCIFIJO'
+LLAVE = Token('LLAVE')
+PUERTA = Token('PUERTA')
+CUCHILLO = Token('CUCHILLO')
+PALANCA = Token('PALANCA')
+CRUCIFIJO = Token('CRUCIFIJO')
 
-nombres = Vocabulario()
-nombres.insertar_masivo({
+nombres = Vocabulario({
     LLAVE: ['LLAVE', 'LLAVECITA'],
     PUERTA: ['PUERTA', 'PORTON'],
     CUCHILLO: ['CUCHILLO'],
