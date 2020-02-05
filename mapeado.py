@@ -1,4 +1,3 @@
-import parser
 import items
 
 class Conexion:
@@ -103,42 +102,4 @@ class Localidad:
     # def tiene_items(self):
     #     return self._grupo_items.esta_vacio()
 
-vestibulo = Localidad(
-    'VESTIBULO',
-    'Estás en el vestíbulo del castillo...'
-)
-
-pasillo = Localidad(
-    'PASILLO',
-    'Te encuentras en medio del pasillo principal...'
-)
-
-cocina = Localidad(
-    'COCINA',
-    'Estás en la cocina del castillo...'
-)
-
-biblioteca = Localidad(
-    'BIBLIOTECA',
-    'Te hallas en la biblioteca del castillo...',
-    contiene=[items.palanca]
-)
-
 localidad_nula = Localidad('NULA', 'Localidad nula.')
-
-vestibulo.conecta_con([
-    Conexion(parser.NORTE, pasillo)
-])
-pasillo.conecta_con([
-    Conexion(parser.SUR, vestibulo),
-    Conexion(parser.ESTE, biblioteca),
-    Conexion(parser.OESTE, cocina)
-])
-biblioteca.conecta_con([
-    Conexion(parser.OESTE, pasillo)
-])
-cocina.conecta_con([
-    Conexion(parser.ESTE, pasillo)
-])
-
-actual = localidad_nula

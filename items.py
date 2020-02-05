@@ -1,5 +1,3 @@
-import parser
-
 class Item:
     def __init__(self, nombre, token):
         self.set_nombre(nombre)
@@ -16,21 +14,6 @@ class Item:
 
     def set_token(self, token):
         self._token = token
-
-cuchillo = Item(
-    'un cuchillo',
-    parser.CUCHILLO
-)
-
-palanca = Item(
-    'una palanca',
-    parser.PALANCA
-)
-
-crucifijo = Item(
-    'un crucifijo',
-    parser.CRUCIFIJO
-)
 
 class GrupoItems:
     def __init__(self, iterable=None):
@@ -65,4 +48,3 @@ class GrupoItems:
             if item.token() == token:
                 return item
         return False
-
