@@ -90,6 +90,9 @@ class Localidad:
     def meter_conexion(self, conexion):
         self.conexiones().meter(conexion)
 
+    def contiene_token(self, token):
+        return self.items().contiene_token(token)
+
     # def meter_item(self, item):
     #     self._grupo_items.meter(item)
 

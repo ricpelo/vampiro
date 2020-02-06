@@ -132,10 +132,10 @@ while True:
     elif Voc.verbo == MIRAR:
         aventurero.localidad().describir()
     elif Voc.verbo == COGER:
-        item = aventurero.localidad().items().contiene_token(Voc.nombre)
+        item = aventurero.localidad().contiene_token(Voc.nombre)
         aventurero.coger(item)
     elif Voc.verbo == DEJAR:
-        item = aventurero.inventario().contiene_token(Voc.nombre)
+        item = aventurero.contiene_token(Voc.nombre)
         aventurero.dejar(item)
     elif Voc.verbo == INVENTARIO:
         aventurero.mostrar_inventario()

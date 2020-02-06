@@ -42,3 +42,6 @@ class Jugador:
     def mover(self, destino):
         self.set_localidad(destino)
         destino.describir()
+
+    def contiene_token(self, token):
+        return self.inventario().contiene_token(token)
