@@ -1,4 +1,5 @@
 import items
+import grupo
 
 class Conexion:
     def __init__(self, direccion, destino):
@@ -20,24 +21,9 @@ class Conexion:
     def set_destino(self, destino):
         self._destino = destino
 
-class GrupoConexiones:
-    def __init__(self, iterable=None):
-        self._conexiones = set()
-        self.meter_masivo(iterable)
-
-    def __repr__(self):
-        return str(self._conexiones)
-
+class GrupoConexiones(grupo.Grupo):
     def conexiones(self):
-        return self._conexiones
-
-    def meter(self, conexion):
-        self.conexiones().add(conexion)
-
-    def meter_masivo(self, iterable):
-        if iterable is not None:
-            for elem in iterable:
-                self.meter(elem)
+        return self.coleccion()
 
     def conecta_al(self, direccion):
         for conexion in self.conexiones():
